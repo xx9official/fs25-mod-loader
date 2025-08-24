@@ -1,0 +1,48 @@
+{
+  "name": "fs25-mod-loader",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FS25 Mod Loader for Windows (Electron + React + TS)",
+  "main": "dist/main/main.js",
+  "author": "Your Name or Org",
+  "license": "MIT",
+  "scripts": {
+    "dev:renderer": "vite",
+    "dev:main": "tsup src/main/main.ts src/main/preload.ts --format cjs --external electron --splitting false --sourcemap --dts --watch --out-dir dist/main",
+    "dev": "concurrently -k -n RND,MAIN,ELEC -c blue,magenta,green \"npm:dev:renderer\" \"npm:dev:main\" \"wait-on tcp:5173 dist/main/main.js && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build:renderer": "vite build",
+    "build:main": "tsup src/main/main.ts src/main/preload.ts --format cjs --external electron --splitting false --sourcemap --dts --out-dir dist/main",
+    "build": "rimraf dist && npm run build:renderer && npm run build:main",
+    "dist": "npm run build && electron-builder --win --x64",
+    "publish": "npm run build && electron-builder --publish always",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "electron-updater": "^6.3.9",
+    "fs-extra": "^11.2.0",
+    "got": "^14.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5",
+    "wait-on": "^8.0.0"
+  }
+}

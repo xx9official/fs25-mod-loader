@@ -1,0 +1,27 @@
+appId: com.xx9.fs25modloader
+productName: FS25 Mod Loader
+directories:
+  buildResources: resources
+  output: release
+files:
+  - dist/main/**
+  - dist/renderer/**
+  - resources/**
+asar: true
+win:
+  target:
+    - nsis
+  icon: resources/fd.ico
+  publisherName: "XX9"
+nsis:
+  oneClick: true
+  perMachine: false
+  allowToChangeInstallationDirectory: false
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+publish:
+  provider: github
+  owner: YOUR_GH_USERNAME
+  repo: fs25-mod-loader
+  releaseType: release
+
